@@ -22,6 +22,9 @@ class User(UserMixin, db.Model):
     upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
     
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
 
     @property
     def password(self):
@@ -33,7 +36,6 @@ class User(UserMixin, db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.secure_password,password) 
-
     
     def __repr__(self):
         return f'User {self.username}'

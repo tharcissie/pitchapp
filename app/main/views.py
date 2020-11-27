@@ -62,7 +62,7 @@ def updateprofile(name):
         abort(404)
     if form.validate_on_submit():
         user.bio = form.bio.data
-        user.save_u()
+        user.save_user()
         return redirect(url_for('.profile',name = name))
     return render_template('profile/update.html',form =form)
 

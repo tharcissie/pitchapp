@@ -7,11 +7,11 @@ from .. import db,photos
 
 @main.route('/')
 def index():
-    pitches = Pitch.query.all()
+    pitch = Pitch.query.all()
     hobbies = Pitch.query.filter_by(category = 'Hobbies').all() 
     experiences = Pitch.query.filter_by(category = 'Experiences').all()
     skills = Pitch.query.filter_by(category = 'Skills').all()
-    return render_template('index.html', hobbies = hobbies, experiences = experiences, pitches = pitches, skills= skills)
+    return render_template('index.html', hobbies = hobbies, experiences = experiences, pitch = pitch, skills= skills)
 
 @main.route('/new_pitch', methods = ['POST','GET'])
 @login_required
@@ -23,7 +23,7 @@ def new_pitch():
         category = form.category.data
         user_id = current_user
         new_pitch_object = Pitch(pitch=pitch,user_id=current_user._get_current_object().id,category=category,title=title)
-        new_pitch_object.save_p()
+        new_pitch_object.save_pitch()
         return redirect(url_for('main.index'))
         
     return render_template('pitch.html', form = form)
@@ -39,7 +39,7 @@ def comment(pitch_id):
         pitch_id = pitch_id
         user_id = current_user._get_current_object().id
         new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
-        new_comment.save_c()
+        new_comment.save_comment()
         return redirect(url_for('.comment', pitch_id = pitch_id))
     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
@@ -48,10 +48,10 @@ def comment(pitch_id):
 def profile(name):
     user = User.query.filter_by(username = name).first()
     user_id = current_user._get_current_object().id
-    pitches = Pitch.query.filter_by(user_id = user_id).all()
+    pitch = Pitch.query.filter_by(user_id = user_id).all()
     if user is None:
         abort(404)
-    return render_template("profile/profile.html", user = user,pitches=pitches)
+    return render_template("profile/profile.html", user = user,pitch=pitch)
 
 @main.route('/user/<name>/updateprofile', methods = ['POST','GET'])
 @login_required
@@ -91,7 +91,7 @@ def like(id):
         else:
             continue
     new_upvote = Upvote(user = current_user, pitch_id=id)
-    new_upvote.save()
+    new_upvote.save_upvote()
     return redirect(url_for('main.index',id=id))
 
 @main.route('/downvote/<int:id>',methods = ['POST','GET'])
@@ -107,5 +107,5 @@ def dislike(id):
         else:
             continue
     new_downvote = Downvote(user = current_user, pitch_id=id)
-    new_downvote.save()
+    new_downvote.save_downvote()
     return redirect(url_for('main.index',id = id))

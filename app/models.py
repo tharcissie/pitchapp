@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     secure_password = db.Column(db.String(255),nullable = False)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
+    pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
     comment = db.relationship('Comment', backref='user', lazy='dynamic')
     upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
@@ -42,7 +42,7 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255),nullable = False)
-    post = db.Column(db.Text(), nullable = False)
+    pitch = db.Column(db.Text(), nullable = False)
     category = db.Column(db.String(255), index = True,nullable = False)
     comment = db.relationship('Comment',backref='pitch',lazy='dynamic')
     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
@@ -113,7 +113,7 @@ class Downvote(db.Model):
         db.session.add(self)
         db.session.commit()
 
-        
+
     @classmethod
     def get_downvotes(cls,id):
         downvote = Downvote.query.filter_by(pitch_id=id).all()

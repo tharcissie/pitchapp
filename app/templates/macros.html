@@ -15,7 +15,7 @@
 									class="fa fa-thumbs-up"
 									style="color: black;"></i></a>{{category.upvote.count()}}</span>
 						<span><a href="{{url_for('main.dislike',id = category.id)}}"> <i class="fa fa-thumbs-down"
-									style="color: black;"></i>{{category.downvote.count()}}</a></span>
+									style="color: black;"></i></a>{{category.downvote.count()}}</span>
 					</div>
 					<a href="{{url_for('main.comment',pitch_id = category.id)}}" class="btn btn-info">Comment</a>
 				</div>

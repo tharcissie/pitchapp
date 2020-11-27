@@ -4,7 +4,7 @@
 <div class="container m-5">
   <div class="row">
     <div class="col-md-4">
-      <div class="card">
+      <div class="card bg-info">
         <div class="card-img">
           {% if user.profile_pic_path %}
           <img src="{{url_for('static',filename=user.profile_pic_path)}}" style="border-radius: 50%; height:200px;"
@@ -14,23 +14,23 @@
           {% endif %}
         </div>
         <div class="card-body">
-          <h5 class="text-center"> {{user.username| capitalize}}</h5>
+          <h5 class="text-center text-light"> {{user.username| capitalize}}</h5>
           <hr>
           {% if user.bio %}
-          <p>{{user.bio}}</p>
+          <p class="text-light">{{user.bio}}</p>
           {%else%}
           <p> No bio </p>
           {% endif %}
           {% if user == current_user %}
 
           <div>
-            <a class="mb-4 btn btn-sm btn-info" href="{{url_for('main.updateprofile',name=user.username)}}">Add Bio</a>
+            <a class="mb-4 btn btn-sm btn-light" href="{{url_for('main.updateprofile',name=user.username)}}">Add Bio</a>
           </div>
-          <div id="imgform">
+          <div>
             <form action="{{url_for('main.update_profile',name=user.username)}}" method="post"
               enctype="multipart/form-data">
               <input type="file" name="photo" class="form-control" required>
-              <input type="submit" class="btn btn-sm btn-info" id="submit">
+              <input type="submit" class="btn btn-sm btn-light">
             </form>
           </div>
           {% endif %}

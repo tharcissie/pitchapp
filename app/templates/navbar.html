@@ -1,4 +1,4 @@
-<nav class="mb-1 navbar navbar-expand-lg navbar-light ">
+<nav class="mb-1 navbar bg-info navbar-expand-lg navbar-dark ">
     <a class="navbar-brand" href="{{url_for('main.index')}}"><strong>PitchApp</strong> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
         aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,20 +19,15 @@
 
             {% if current_user.is_authenticated %}
 
-            <li><a><i class="fas fa-user"></i> <strong> {{current_user.username}}</strong> </a></li>
-            <li><a href="{{url_for('main.profile',name=current_user.username)}}"><i class="far fa-user"></i> My account</a></li>
-            <li> <a href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>Log out</a></li>
+            <li class="nav-item mr-3"><a class="nav-link"><strong> {{current_user.username}}</strong> </a></li>
+            <li class="nav-item mr-3"><a class="nav-link" href="{{url_for('main.profile',name=current_user.username)}}"><strong>My Account</strong></a></li>
+            <li class="nav-item mr-3"><a class="nav-link" href="{{url_for('auth.logout')}}"><strong>LogOut</strong></a></li>
             
             {% else %}
             
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('auth.login')}}" style='margin-right:30px'><i
-                        class="fas fa-sign-in-alt"></i>&nbsp; <strong>Log In</strong></a>
-            </li>
-            <li class="nav-item">
-                <a style='margin-right:30px' class="nav-link" href="{{url_for('auth.signup')}}"><i
-                        class="fas fa-user-plus"></i></i>&nbsp; <strong>Sign Up</strong></a>
-            </li>
+            <li class="nav-item mr-3"><a class="nav-link" href="{{url_for('auth.login')}}"><strong>LogIn</strong></a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url_for('auth.signup')}}"><strong>SignUp</strong></a></li>
+           
             {%endif%}
 
         </ul>

@@ -11,25 +11,20 @@
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('main.new_pitch')}}">New Pitch</a>
+                <a class="nav-link" href="{{url_for('main.new_pitch')}}">Create New Pitch</a>
             </li>
             {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
+
             {% if current_user.is_authenticated %}
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" style='margin-right:30px' data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user"></i>&nbsp;<strong>{{current_user.username}}</strong> </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                    <a class="dropdown-item" href="{{url_for('main.profile',name=current_user.username)}}"><i
-                            class="far fa-user"></i>&nbsp; My account</a>
-                    <a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp;
-                        Log out</a>
-                </div>
-            </li>
+            <li><a><i class="fas fa-user"></i> <strong> {{current_user.username}}</strong> </a></li>
+            <li><a href="{{url_for('main.profile',name=current_user.username)}}"><i class="far fa-user"></i> My account</a></li>
+            <li> <a href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>Log out</a></li>
+            
             {% else %}
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{url_for('auth.login')}}" style='margin-right:30px'><i
                         class="fas fa-sign-in-alt"></i>&nbsp; <strong>Log In</strong></a>
